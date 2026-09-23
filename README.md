@@ -481,8 +481,6 @@ Planned improvements include:
 
 ## ⚖️ License
 
-[svg](https://github.com/Aarya-Musale/ChatLlama#%EF%B8%8F-license)
-
 This project is developed for educational, learning, experimentation, and professional portfolio purposes.
 
 ## 👤 Author / Acknowledgments
