@@ -57,10 +57,10 @@ Here is a look at the ChatLlama conversational interface, chat history, document
 
 ### 💬 Chat Interface
 
-![ChatLlama Chat Interface](assets/chat_interface.png)
+![ChatLlama Chat Interface](assets/chatllama_ss.png)
 
 
-> **Note:** Place your screenshots inside the `assets/` folder using the filenames shown above, or update the image paths according to your actual screenshot filenames.
+(Note: Place your screenshots inside the `assets/` folder using the filenames shown above, or update the image paths according to your actual screenshot filenames.)
 
 ## 🛠 Tech Stack & Dependencies
 
