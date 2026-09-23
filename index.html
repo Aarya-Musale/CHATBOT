@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>ChatLlama</title>
+
+
+    <!-- Markdown -->
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+
+    <!-- CSS -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app-container">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside
+        class="sidebar"
+        id="sidebar"
+    >
+
+        <div class="sidebar-header">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    🦙
+                </div>
+
+                <div class="brand-text">
+
+                    <h2>ChatLlama</h2>
+
+                    <span>AI Assistant</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- New Chat -->
+
+        <button
+            class="new-chat-btn"
+            onclick="newChat()"
+        >
+
+            <span class="new-chat-icon">
+                ＋
+            </span>
+
+            <span>
+                New Chat
+            </span>
+
+        </button>
+
+
+        <!-- Search -->
+
+        <div class="search-container">
+
+            <input
+                type="text"
+                id="chatSearch"
+                placeholder="🔍 Search chats..."
+                autocomplete="off"
+                oninput="searchChats()"
+            >
+
+        </div>
+
+
+        <!-- Recent -->
+
+        <div class="recent-title">
+
+            <span>
+                Recent Chats
+            </span>
+
+            <button
+                class="delete-all-btn"
+                onclick="deleteAllChats()"
+                title="Delete all chats"
+            >
+                🗑
+            </button>
+
+        </div>
+
+
+        <!-- Chat History -->
+
+        <div
+            class="chat-history"
+            id="chatHistory"
+        >
+
+            <div class="no-chats">
+                No recent chats
+            </div>
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <div class="sidebar-footer">
+
+            <div class="model-info">
+
+                <div class="status-dot"></div>
+
+                <div>
+
+                    <strong>
+                        Llama 3.2
+                    </strong>
+
+                    <small>
+                        Local AI Model
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- Header -->
+
+        <header class="chat-header">
+
+            <div class="header-left">
+
+                <button
+                    class="mobile-menu-btn"
+                    onclick="toggleSidebar()"
+                    title="Open menu"
+                >
+                    ☰
+                </button>
+
+
+                <div>
+
+                    <h1>
+                        ChatLlama
+                    </h1>
+
+                    <p>
+                        Powered by Llama 3.2
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <span class="connection-status">
+
+                    <span class="status-dot"></span>
+
+                    Local
+
+                </span>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =====================================================
+             MESSAGES
+        ====================================================== -->
+
+        <section
+            class="messages-container"
+            id="messages"
+        >
+
+            <div
+                class="welcome-screen"
+                id="welcomeScreen"
+            >
+
+                <div class="welcome-icon">
+                    🦙
+                </div>
+
+
+                <h2>
+                    How can I help you today?
+                </h2>
+
+
+                <p>
+                    Ask me anything. I'm powered by
+                    <strong>Llama 3.2</strong>
+                    and running locally on your computer.
+                </p>
+
+
+                <div class="suggestions">
+
+
+                    <button
+                        class="suggestion-card"
+                        onclick="useSuggestion('Explain Python functions with examples')"
+                    >
+
+                        <span class="suggestion-icon">
+                            🐍
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Learn Python
+                            </strong>
+
+                            <small>
+                                Explain functions with examples
+                            </small>
+
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        class="suggestion-card"
+                        onclick="useSuggestion('Give me some machine learning project ideas')"
+                    >
+
+                        <span class="suggestion-icon">
+                            🤖
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Machine Learning
+                            </strong>
+
+                            <small>
+                                Get project ideas
+                            </small>
+
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        class="suggestion-card"
+                        onclick="useSuggestion('Write a Python program to find the second largest number in a list')"
+                    >
+
+                        <span class="suggestion-icon">
+                            💻
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Coding Help
+                            </strong>
+
+                            <small>
+                                Solve a Python problem
+                            </small>
+
+                        </div>
+
+                    </button>
+
+
+                    <button
+                        class="suggestion-card"
+                        onclick="useSuggestion('What are the most important topics to prepare for an AI Engineer interview?')"
+                    >
+
+                        <span class="suggestion-icon">
+                            🎯
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Interview Prep
+                            </strong>
+
+                            <small>
+                                Prepare for AI interviews
+                            </small>
+
+                        </div>
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             INPUT
+        ====================================================== -->
+
+        <div class="input-section">
+
+
+            <!-- Document Preview -->
+
+            <div
+                class="document-preview"
+                id="documentPreview"
+                style="display: none;"
+            >
+
+                <div class="document-icon">
+                    📄
+                </div>
+
+                <div class="document-info">
+
+                    <strong id="documentName">
+                        Document
+                    </strong>
+
+                    <small id="documentStatus">
+                        Ready
+                    </small>
+
+                </div>
+
+                <button
+                    class="remove-document"
+                    onclick="removeDocument()"
+                    title="Remove document"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="input-wrapper">
+
+
+                <!-- Attach -->
+
+                <button
+                    class="attach-button"
+                    onclick="document.getElementById('documentInput').click()"
+                    title="Upload PDF, DOCX or TXT"
+                    type="button"
+                >
+                    📎
+                </button>
+
+
+                <input
+                    type="file"
+                    id="documentInput"
+                    accept=".pdf,.docx,.txt"
+                    hidden
+                    onchange="uploadDocument(this)"
+                >
+
+
+                <!-- Text -->
+
+                <textarea
+                    id="messageInput"
+                    rows="1"
+                    placeholder="Message ChatLlama..."
+                    autocomplete="off"
+                    oninput="autoResize(this)"
+                ></textarea>
+
+
+                <!-- Send -->
+
+                <button
+                    id="sendButton"
+                    class="send-button"
+                    onclick="sendMessage()"
+                    title="Send message"
+                    type="button"
+                >
+
+                    <span id="sendIcon">
+                        ➤
+                    </span>
+
+                </button>
+
+
+            </div>
+
+
+            <div class="input-footer">
+
+                <span>
+                    Enter to send • Shift + Enter for new line
+                </span>
+
+                <span>
+                    ChatLlama can make mistakes. Verify important information.
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+</div>
+
+
+<!-- JavaScript -->
+
+<script
+    src="{{ url_for('static', filename='script.js') }}"
+></script>
+
+
+</body>
+
+</html>
