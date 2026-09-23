@@ -92,9 +92,7 @@ Here is a look at the ChatLlama conversational interface, chat history, document
 ChatLlama/
 │
 ├── assets/
-│   ├── chat_interface.png
-│   ├── document_chat.png
-│   └── chat_history.png
+│   ├── chatllama_ss.png
 │
 ├── static/
 │   ├── script.js
